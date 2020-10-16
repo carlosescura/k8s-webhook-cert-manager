@@ -158,7 +158,7 @@ echo "${serverCert}" | openssl base64 -d -A -out "${tmpdir}/server-cert.pem"
 kubectl create secret tls "${secret}" \
       --key="${tmpdir}/server-key.pem" \
       --cert="${tmpdir}/server-cert.pem" \
-      --dry-run -o yaml |
+      --dry-run=client -o yaml |
   kubectl -n "${namespace}" apply -f -
 
 caBundle=$(base64 < /run/secrets/kubernetes.io/serviceaccount/ca.crt  | tr -d '\n')
